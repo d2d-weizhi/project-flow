@@ -13,7 +13,7 @@ type TaskAction =
   | { type: "FETCH_TASKS"; payload: ITask[] }
   | { type: "CREATE_TASK"; payload: ITask }
   | { type: "UPDATE_TASK"; payload: ITask }
-  | { type: "DELETE_TASK"; payload: number }; // Payload is the task ID
+  | { type: "DELETE_TASK"; payload: string }; // Payload is the task ID
 
 const initialState: TaskState = {
   tasksByStatus: {

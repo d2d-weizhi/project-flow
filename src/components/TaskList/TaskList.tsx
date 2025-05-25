@@ -1,27 +1,42 @@
 import { useContext, useState, useEffect } from "react";
-import { TasksContext } from '../../context/TasksContext';
-import { createTask, updateTask, getTasks, deleteTask } from "../../services/api";
+import { TasksContext } from "../../context/TasksContext";
+import {
+  createTask,
+  updateTask,
+  getTasks,
+  deleteTask,
+} from "../../services/api";
 import type { ITask } from "../../services/types"; // Import your Task type
 import {
-	Dialog, DialogTitle, DialogContent, DialogActions,
-  Table, TableBody, TableCell, TableContainer, TableHead, TableRow,
-  Paper, Button, IconButton, 
-	useMediaQuery
-} from '@mui/material';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
-import CloseIcon from '@mui/icons-material/Close';
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  Button,
+  IconButton,
+  useMediaQuery,
+} from "@mui/material";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
+import CloseIcon from "@mui/icons-material/Close";
 
 import TaskForm from "../TaskForm/TaskForm";
 
-export default function TaskList() {
+export default function TaskList({theme}: {theme: string}) {
   const { state, dispatch } = useContext(TasksContext);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalMode, setModalMode] = useState<"create" | "edit">("create");
   const [selectedTask, setSelectedTask] = useState<ITask | null>(null);
 
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
-  const [taskIdToDelete, setTaskIdToDelete] = useState<number | null>(null);
+  const [taskIdToDelete, setTaskIdToDelete] = useState<string | null>(null);
 
   const isWidth1024 = useMediaQuery("(min-width: 1024px)");
   const isWidth768 = useMediaQuery("(min-width: 768px)");
@@ -37,10 +52,10 @@ export default function TaskList() {
   const handleCreateTask = async (newTask: ITask) => {
     try {
       const createdTask = await createTask(newTask);
-      dispatch({ type: 'CREATE_TASK', payload: createdTask });
+      dispatch({ type: "CREATE_TASK", payload: createdTask });
       handleCloseModal();
     } catch (error) {
-      console.error('Error creating task:', error);
+      console.error("Error creating task:", error);
       // Handle errors (e.g., display an error message to the user)
     }
   };
@@ -48,15 +63,15 @@ export default function TaskList() {
   const handleUpdateTask = async (updatedTask: ITask) => {
     try {
       await updateTask(updatedTask);
-      dispatch({ type: 'UPDATE_TASK', payload: updatedTask });
+      dispatch({ type: "UPDATE_TASK", payload: updatedTask });
       handleCloseModal();
     } catch (error) {
-      console.error('Error updating task:', error);
+      console.error("Error updating task:", error);
       // Handle errors
     }
   };
 
-  const handleDelete = (taskId: number) => {
+  const handleDelete = (taskId: string) => {
     setTaskIdToDelete(taskId);
     setShowDeleteDialog(true);
   };
@@ -65,10 +80,10 @@ export default function TaskList() {
     if (taskIdToDelete !== null) {
       try {
         await deleteTask(taskIdToDelete);
-        dispatch({ type: 'DELETE_TASK', payload: taskIdToDelete });
+        dispatch({ type: "DELETE_TASK", payload: taskIdToDelete });
       } catch (error) {
-        console.error('Error deleting task:', error);
-        // Handle errors 
+        console.error("Error deleting task:", error);
+        // Handle errors
       }
     }
     setShowDeleteDialog(false);
@@ -115,77 +130,169 @@ export default function TaskList() {
         </DialogActions>
       </Dialog>
 
-			<h3>TO-DO</h3>
+      <h3 className={theme === "light" ? "light-header" : "dark-header" }>TO-DO</h3>
+
+      <TableContainer component={Paper} className={`mt-4`}>
+        <Table>
+          <TableHead className={`${theme}-theme-table`}>
+            <TableRow>
+              <TableCell
+                className={`${isWidth1024 ? "w-[20%]" : "min-w-[150px]"}`}
+              >
+                <span className={`${theme === "dark" ? "text-white" : "text-black"}`}>Title</span>
+              </TableCell>
+              {isWidth768 && (
+                <TableCell
+                  className={`${isWidth1024 ? "w-[30%]" : "min-w-[250px]"}`}
+                >
+                  <span className={`${theme === "dark" ? "text-white" : "text-black"}`}>Description</span>
+                </TableCell>
+              )}
+              <TableCell className="w-[10%] min-w-[150px]">
+								<span className={`${theme === "dark" ? "text-white" : "text-black"}`}>Status</span>
+							</TableCell>
+              {isWidth1024 && (
+                <TableCell className="w-[10%] min-w-[180px]">
+                  <span className={`${theme === "dark" ? "text-white" : "text-black"}`}>Assignee</span>
+                </TableCell>
+              )}
+              <TableCell className="w-[10%] min-w-[120px]">
+								<span className={`${theme === "dark" ? "text-white" : "text-black"}`}>
+									Actions
+								</span>
+							</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody className={`${theme}-theme-table`}>
+            {state.tasksByStatus.Todo.map((task) => (
+              <TableRow key={task.id}>
+                <TableCell
+                  className={`${isWidth1024 ? "w-[20%]" : "min-w-[150px]"}`}
+                >
+                  <span className={`${theme === "dark" ? "text-white" : "text-black"}`}>{task.title}</span>
+                </TableCell>
+                {isWidth768 && (
+                  <TableCell
+                    className={`${isWidth1024 ? "w-[30%]" : "min-w-[250px]"}`}
+                  >
+                    <span className={`${theme === "dark" ? "text-white" : "text-black"}`}>{task.description}</span>
+                  </TableCell>
+                )}
+                <TableCell className="w-[10%] min-w-[150px]">
+                  <span className={`${theme === "dark" ? "text-white" : "text-black"}`}>{task.status}</span>
+                </TableCell>
+                {isWidth1024 && (
+                  <TableCell className="w-[10%] min-w-[180px]">
+                    <span className={`${theme === "dark" ? "text-white" : "text-black"}`}>{task.assignee}</span>
+                  </TableCell>
+                )}
+                <TableCell className="w-[10%] min-w-[120px]">
+                  <IconButton onClick={() => handleEditTaskOpen(task)} 
+										style={{
+											color: theme === "dark" ? "white" : "black",
+										}}	
+									>
+                    <EditIcon />
+                  </IconButton>
+                  <IconButton onClick={() => handleDelete(task.id)}
+										style={{
+											color: theme === "dark" ? "white" : "black",
+										}}		
+									>
+                    <DeleteIcon />
+                  </IconButton>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+
+      <h3 className={theme === "light" ? "light-header" : "dark-header" }>In-Progress</h3>
 
       <TableContainer component={Paper} className="mt-4">
         <Table>
-          <TableHead>
+          <TableHead className={`${theme}-theme-table`}>
             <TableRow>
-              <TableCell 
-								className={`${isWidth1024 ? 'w-[20%]' : 'min-w-[150px]'}`}
-							>
-								Title
+              <TableCell
+                className={`${isWidth1024 ? "w-[20%]" : "min-w-[150px]"}`}
+              >
+								<span className={`${theme === "dark" ? "text-white" : "text-black"}`}>
+                	Title
+								</span>
+              </TableCell>
+              {isWidth768 && (
+                <TableCell
+                  className={`${isWidth1024 ? "w-[30%]" : "min-w-[250px]"}`}
+                >
+									<span className={`${theme === "dark" ? "text-white" : "text-black"}`}>
+                  	Description
+									</span>
+                </TableCell>
+              )}
+              <TableCell className="w-[10%] min-w-[150px]">
+								<span className={`${theme === "dark" ? "text-white" : "text-black"}`}>
+									Status
+								</span>
 							</TableCell>
-              {isWidth768 && <TableCell className={`${isWidth1024 ? 'w-[30%]' : 'min-w-[250px]'}`}>Description</TableCell>}
-              <TableCell className="w-[10%] min-w-[150px]">Status</TableCell>
-              {isWidth1024 && <TableCell className="w-[10%] min-w-[180px]">Assignee</TableCell>}
-              <TableCell className="w-[10%] min-w-[120px]">Actions</TableCell>
+              {isWidth1024 && (
+                <TableCell className="w-[10%] min-w-[180px]">
+									<span className={`${theme === "dark" ? "text-white" : "text-black"}`}>
+                 		Assignee
+									</span>
+                </TableCell>
+              )}
+              <TableCell className="w-[10%] min-w-[120px]">
+								<span className={`${theme === "dark" ? "text-white" : "text-black"}`}>
+									Actions
+								</span>
+							</TableCell>
             </TableRow>
           </TableHead>
-          <TableBody>
-            {state.tasksByStatus.Todo.map((task) => (
-              <TableRow key={task.id}>
-                <TableCell className={`${isWidth1024 ? 'w-[20%]' : 'min-w-[150px]'}`}>
-									{task.title}
-								</TableCell>
-                {isWidth768 && <TableCell className={`${isWidth1024 ? 'w-[30%]' : 'min-w-[250px]'}`}>{task.description}</TableCell>}
-                <TableCell className="w-[10%] min-w-[150px]">
-                  {task.status}
-                </TableCell>
-                {isWidth1024 && <TableCell className="w-[10%] min-w-[180px]">{task.assignee}</TableCell>}
-                <TableCell className="w-[10%] min-w-[120px]">
-                  <IconButton onClick={() => handleEditTaskOpen(task)}>
-                    <EditIcon />
-                  </IconButton>
-                  <IconButton onClick={() => handleDelete(task.id)}>
-                    <DeleteIcon />
-                  </IconButton>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-
-			<h3>In-Progress</h3>
-
-			<TableContainer component={Paper} className="mt-4">
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell className={`${isWidth1024 ? 'w-[20%]' : 'min-w-[150px]'}`}>
-								Title
-							</TableCell>
-              {isWidth768 && <TableCell className={`${isWidth1024 ? 'w-[30%]' : 'min-w-[250px]'}`}>Description</TableCell>}
-              <TableCell className="w-[10%] min-w-[150px]">Status</TableCell>
-              {isWidth1024 && <TableCell className="w-[10%] min-w-[180px]">Assignee</TableCell>}
-              <TableCell className="w-[10%] min-w-[120px]">Actions</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
+          <TableBody className={`${theme}-theme-table`}>
             {state.tasksByStatus.InProgress.map((task) => (
               <TableRow key={task.id}>
-                <TableCell className={`${isWidth1024 ? 'w-[20%]' : 'min-w-[150px]'}`}>{task.title}</TableCell>
-                {isWidth768 && <TableCell className={`${isWidth1024 ? 'w-[30%]' : 'min-w-[250px]'}`}>{task.description}</TableCell>}
-                <TableCell className="w-[10%] min-w-[150px]">
-                  {task.status}
+                <TableCell
+                  className={`${isWidth1024 ? "w-[20%]" : "min-w-[150px]"}`}
+                >
+									<span className={`${theme === "dark" ? "text-white" : "text-black"}`}>
+                  	{task.title}
+									</span>
                 </TableCell>
-                {isWidth1024 && <TableCell className="w-[10%] min-w-[180px]">{task.assignee}</TableCell>}
+                {isWidth768 && (
+                  <TableCell
+                    className={`${isWidth1024 ? "w-[30%]" : "min-w-[250px]"}`}
+                  >
+										<span className={`${theme === "dark" ? "text-white" : "text-black"}`}>
+                    	{task.description}
+										</span>
+                  </TableCell>
+                )}
+                <TableCell className="w-[10%] min-w-[150px]">
+									<span className={`${theme === "dark" ? "text-white" : "text-black"}`}>
+                  	{task.status}
+									</span>
+                </TableCell>
+                {isWidth1024 && (
+                  <TableCell className="w-[10%] min-w-[180px]">
+										<span className={`${theme === "dark" ? "text-white" : "text-black"}`}>
+                    	{task.assignee}
+										</span>
+                  </TableCell>
+                )}
                 <TableCell className="w-[10%] min-w-[120px]">
-                  <IconButton onClick={() => handleEditTaskOpen(task)}>
+                  <IconButton onClick={() => handleEditTaskOpen(task)}
+										style={{
+											color: theme === "dark" ? "white" : "black",
+										}}	
+									>
                     <EditIcon />
                   </IconButton>
-                  <IconButton onClick={() => handleDelete(task.id)}>
+                  <IconButton onClick={() => handleDelete(task.id)}
+										style={{
+											color: theme === "dark" ? "white" : "black",
+										}}
+									>
                     <DeleteIcon />
                   </IconButton>
                 </TableCell>
@@ -195,30 +302,84 @@ export default function TaskList() {
         </Table>
       </TableContainer>
 
-			<h3>Completed</h3>
+      <h3 className={theme === "light" ? "light-header" : "dark-header" }>Completed</h3>
 
-			<TableContainer component={Paper} className="mt-4">
+      <TableContainer component={Paper} className="mt-4">
         <Table>
-          <TableHead>
+          <TableHead className={`${theme}-theme-table`}>
             <TableRow>
-              <TableCell className={`${isWidth1024 ? 'w-[20%]' : 'min-w-[150px]'}`}>Title</TableCell>
-              {isWidth768 && <TableCell className={`${isWidth1024 ? 'w-[30%]' : 'min-w-[250px]'}`}>Description</TableCell>}
-              <TableCell className="w-[10%] min-w-[150px]">Status</TableCell>
-              {isWidth1024 && <TableCell className="w-[10%] min-w-[180px]">Assignee</TableCell>}
-              <TableCell className="w-[10%] min-w-[100px]">Actions</TableCell>
+              <TableCell
+                className={`${isWidth1024 ? "w-[20%]" : "min-w-[150px]"}`}
+              >
+								<span className={`${theme === "dark" ? "text-white" : "text-black"}`}>
+                	Title
+								</span>
+              </TableCell>
+              {isWidth768 && (
+                <TableCell
+                  className={`${isWidth1024 ? "w-[30%]" : "min-w-[250px]"}`}
+                >
+									<span className={`${theme === "dark" ? "text-white" : "text-black"}`}>
+                  	Description
+									</span>
+                </TableCell>
+              )}
+              <TableCell className="w-[10%] min-w-[150px]">
+								<span className={`${theme === "dark" ? "text-white" : "text-black"}`}>
+									Status
+								</span>
+							</TableCell>
+              {isWidth1024 && (
+                <TableCell className="w-[10%] min-w-[180px]">
+									<span className={`${theme === "dark" ? "text-white" : "text-black"}`}>
+                  	Assignee
+									</span>
+                </TableCell>
+              )}
+              <TableCell className="w-[10%] min-w-[100px]">
+								<span className={`${theme === "dark" ? "text-white" : "text-black"}`}>
+									Actions
+								</span>
+							</TableCell>
             </TableRow>
           </TableHead>
-          <TableBody>
+          <TableBody className={`${theme}-theme-table`}>
             {state.tasksByStatus.Done.map((task) => (
               <TableRow key={task.id}>
-                <TableCell className={`${isWidth1024 ? 'w-[20%]' : 'min-w-[150px]'}`}>{task.title}</TableCell>
-                {isWidth768 && <TableCell className={`${isWidth1024 ? 'w-[30%]' : 'min-w-[250px]'}`}>{task.description}</TableCell>}
-                <TableCell className="w-[10%] min-w-[150px]">
-                  {task.status}
+                <TableCell
+                  className={`${isWidth1024 ? "w-[20%]" : "min-w-[150px]"}`}
+                >
+									<span className={`${theme === "dark" ? "text-white" : "text-black"}`}>
+                  	{task.title}
+									</span>
                 </TableCell>
-                {isWidth1024 && <TableCell className="w-[10%] min-w-[180px]">{task.assignee}</TableCell>}
+                {isWidth768 && (
+                  <TableCell
+                    className={`${isWidth1024 ? "w-[30%]" : "min-w-[250px]"}`}
+                  >
+										<span className={`${theme === "dark" ? "text-white" : "text-black"}`}>
+                    	{task.description}
+										</span>
+                  </TableCell>
+                )}
+                <TableCell className="w-[10%] min-w-[150px]">
+									<span className={`${theme === "dark" ? "text-white" : "text-black"}`}>
+                  	{task.status}
+									</span>
+                </TableCell>
+                {isWidth1024 && (
+                  <TableCell className="w-[10%] min-w-[180px]">
+										<span className={`${theme === "dark" ? "text-white" : "text-black"}`}>
+                    	{task.assignee}
+										</span>
+                  </TableCell>
+                )}
                 <TableCell className="w-[10%] min-w-[100px]">
-                  <IconButton onClick={() => handleDelete(task.id)}>
+                  <IconButton onClick={() => handleDelete(task.id)}
+										style={{
+											color: theme === "dark" ? "white" : "black",
+										}}
+									>
                     <DeleteIcon />
                   </IconButton>
                 </TableCell>
@@ -254,4 +415,4 @@ export default function TaskList() {
       )}
     </div>
   );
-};
+}

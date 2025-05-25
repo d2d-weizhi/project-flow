@@ -105,6 +105,17 @@ src/
   - Also ensured that the state management included 3 arrays for tracking tasks under each status.
   - TODO: I need to add more documentation to the reducer section so it is more readable.
 
+8. Dark/Light Modes.
+
+  - For now, the MUI table is able to toggle between dark and light mode, but it is a simple implementation. Perhaps not the most effective. With a little more time, it can definitely be achieved.
+  - Created simple CSS classes in `global.css` so that we can easily insert the right class into the relevant components and tags.
+
+9.  Using `localStorage` for unique user sessions.
+
+  - Added `localStorage` for tracking the selected theme
+  - The sample data used in `db.json` is now ported over for initialSeeding of the storage.
+
+
 ## Key Observations and Decisions:
 
 ### Styling Approach:
@@ -113,3 +124,14 @@ src/
 - I've decided to use pre-built MUI components for our Buttons, Tables and so on.
 
 - **Important Note:** I've observed that Tailwind CSS classes might not always work as expected when applied directly to some MUI components. To maintain styling consistency and avoid conflicts, I'll use Tailwind CSS primarily for outer layout styling and rely on MUI's styling mechanisms (e.g., the sx prop, custom themes) for styling within MUI components.
+
+### Functionality Choices:
+
+- **Prioritizing Core Features**: Given the time constraints of this assignment, I focused on delivering a solid foundation with core CRUD (Create, Read, Update, Delete) functionality for tasks. This involved building a user-friendly Task List and Task Form.
+- **Local Storage for Persistence (Unique User Sessions)**: To provide a basic level of data persistence and simulate unique user sessions, I implemented localStorage to store task data. This approach avoids the need for a full backend database setup, which would have exceeded the scope of this assignment. 
+- **Dark and Light Theme**: To enhance the user experience, I implemented a dark and light theme switcher, allowing users to customize their visual preference. This feature leverages CSS variables and conditional class names for efficient theme toggling.
+
+### Collaboration and Future Enhancements:
+
+- **Accelerated Development with Gemini**: I collaborated with Gemini, a large language model, to significantly speed up the development process. Gemini assisted in generating code snippets, suggesting solutions, and identifying potential issues. I maintained a hands-on approach, thoroughly testing and modifying the generated code to ensure its correctness and alignment with best practices.
+- **Drag-and-Drop and Filtering (Future Considerations)**: While time constraints prevented me from implementing advanced features like drag-and-drop task management and filtering within the Task List, I recognize their value and plan to explore them in future iterations of this project.

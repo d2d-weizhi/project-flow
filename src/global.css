@@ -1,22 +1,47 @@
 @import "tailwindcss";
 
+:root {
+  --light-bg-color: #fefefe;  /* Default: Light theme */
+  --light-text-color: #242424; /* Default: Light theme */
+
+  --dark-bg-color: #121212;  /* Default: Dark theme */
+  --dark-text-color: #fefefe;  /* Default: Dark theme */
+
+}
+
 #root {
   @apply w-screen h-screen;
-  @apply flex p-12 justify-center;
+  @apply flex justify-center;
   font-family: "Roboto", system-ui, Avenir, Helvetica, Arial, sans-serif;
   letter-spacing: 1px;
   line-height: 1.6;
   font-weight: 350;
   font-size: 1.125rem;
 
-  color-scheme: light dark;
-  color: #242424;
-  background-color: #fefefe;
-
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.light-theme {
+  /* Use the CSS variables here */
+  background-color: var(--light-bg-color); 
+  color: var(--light-text-color); 
+}
+
+.dark-theme {
+  /* Use the CSS variables here */
+  background-color: var(--dark-bg-color); 
+  color: var(--dark-text-color); 
+}
+
+.light-header {
+  border-bottom: 1px solid #242424;
+}
+
+.dark-header {
+  border-bottom: 1px solid #fefefe;
 }
 
 h1 {
@@ -25,7 +50,6 @@ h1 {
   font-weight: 700;
   letter-spacing: 1px;
   line-height: 1rem;
-  border-bottom: 1px solid #242424;
 }
 
 h2 {
@@ -34,7 +58,6 @@ h2 {
   font-weight: 700;
   letter-spacing: 1px;
   line-height: 1rem;
-  border-bottom: 1px solid #242424;
 }
 
 h3 {
@@ -44,7 +67,16 @@ h3 {
   letter-spacing: 1px;
   line-height: 1.5rem;
   text-transform: uppercase;
-  border-bottom: 1px solid #242424;
+}
+
+.light-theme-table {
+  background-color: white; /* Light theme table background */
+  color: black;           /* Light theme table text color */
+}
+
+.dark-theme-table {
+  background-color: #333; /* Dark theme table background */
+  color: white;           /* Dark theme table text color */
 }
 
 .modal-overlay {

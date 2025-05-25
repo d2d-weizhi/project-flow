@@ -1,4 +1,4 @@
-import React, { useState, useEffect, use } from 'react';
+import React, { useState, useEffect } from 'react';
 import type { ITask } from '../../services/types';
 import { TextField, Button, MenuItem  } from '@mui/material';
 
@@ -40,7 +40,7 @@ export default function TaskForm ({ initialTask, onSubmit, onClose }: TaskFormPr
     }
 
     const newTask: ITask = {
-      id: initialTask?.id || Date.now(), // Generate a temporary ID if creating
+      id: (initialTask?.id || Date.now()).toString(), // Generate a temporary ID if creating
       title,
       description,
       status,
