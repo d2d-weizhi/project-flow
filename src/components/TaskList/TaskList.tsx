@@ -18,6 +18,7 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+	TextField,
   Paper,
   Button,
   IconButton,
@@ -107,7 +108,7 @@ export default function TaskList({theme}: {theme: string}) {
   };
 
   return (
-    <div>
+    <div className="flex flex-col w-full h-max">
       <h2>Task List</h2>
 
       <Button variant="contained" onClick={handleCreateTaskOpen}>
