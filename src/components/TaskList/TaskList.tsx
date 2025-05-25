@@ -108,12 +108,21 @@ export default function TaskList({theme}: {theme: string}) {
   };
 
   return (
-    <div className="flex flex-col w-full h-max">
+    <div className="flex flex-col w-full h-max items-start">
       <h2>Task List</h2>
-
-      <Button variant="contained" onClick={handleCreateTaskOpen}>
-        Create New Task
-      </Button>
+			
+			<div className="flex w-full h-max>
+				<div className="flex w-1/2 items-center justify-start">
+					<Button variant="contained" onClick={handleCreateTaskOpen}>
+        		Create New Task
+      		</Button>
+				</div>
+				<div className="flex w-1/2 items-center justify-end">
+					<TextField variant="standard" />
+					<Button variant="contained">Search</Button>
+				</div>
+			</div>
+      
 
       <Dialog
         open={showDeleteDialog}
