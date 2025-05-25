@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+import { useContext, useState, useEffect } from "react";
+import { TasksContext } from '../../context/TasksContext';
 import { createTask, updateTask, getTasks, deleteTask } from "../../services/api";
 import type { ITask } from "../../services/types"; // Import your Task type
 import {
@@ -14,30 +15,29 @@ import CloseIcon from '@mui/icons-material/Close';
 import TaskForm from "../TaskForm/TaskForm";
 
 export default function TaskList() {
-  const [tasks, setTasks] = useState<ITask[]>([]);
+  const { state, dispatch } = useContext(TasksContext);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalMode, setModalMode] = useState<'create' | 'edit'>('create');
+  const [modalMode, setModalMode] = useState<"create" | "edit">("create");
   const [selectedTask, setSelectedTask] = useState<ITask | null>(null);
 
-	const [showDeleteDialog, setShowDeleteDialog] = useState(false);
+  const [showDeleteDialog, setShowDeleteDialog] = useState(false);
   const [taskIdToDelete, setTaskIdToDelete] = useState<number | null>(null);
 
-	const isWidth1024 = useMediaQuery('(min-width: 1024px)');
-	const isWidth768 = useMediaQuery('(min-width: 768px)');
-	
+  const isWidth1024 = useMediaQuery("(min-width: 1024px)");
+  const isWidth768 = useMediaQuery("(min-width: 768px)");
+
   useEffect(() => {
     const fetchTasks = async () => {
       const fetchedTasks = await getTasks();
-      setTasks(fetchedTasks);
+      dispatch({ type: "FETCH_TASKS", payload: fetchedTasks });
     };
-
     fetchTasks();
-  }, []);
+  }, [dispatch]); // Add dispatch to the dependency array
 
-	const handleCreateTask = async (newTask: ITask) => {
+  const handleCreateTask = async (newTask: ITask) => {
     try {
       const createdTask = await createTask(newTask);
-      setTasks([...tasks, createdTask]); // Add the new task to the list
+      dispatch({ type: 'CREATE_TASK', payload: createdTask });
       handleCloseModal();
     } catch (error) {
       console.error('Error creating task:', error);
@@ -47,8 +47,8 @@ export default function TaskList() {
 
   const handleUpdateTask = async (updatedTask: ITask) => {
     try {
-      await updateTask(updatedTask); 
-      setTasks(tasks.map(t => (t.id === updatedTask.id ? updatedTask : t))); // Update the task in the list
+      await updateTask(updatedTask);
+      dispatch({ type: 'UPDATE_TASK', payload: updatedTask });
       handleCloseModal();
     } catch (error) {
       console.error('Error updating task:', error);
@@ -56,28 +56,33 @@ export default function TaskList() {
     }
   };
 
-	const handleDelete = (taskId: number) => {
+  const handleDelete = (taskId: number) => {
     setTaskIdToDelete(taskId);
     setShowDeleteDialog(true);
   };
 
-	const handleConfirmDelete = async () => {
+  const handleConfirmDelete = async () => {
     if (taskIdToDelete !== null) {
-      await deleteTask(taskIdToDelete);
-      setTasks(tasks.filter((task) => task.id !== taskIdToDelete));
+      try {
+        await deleteTask(taskIdToDelete);
+        dispatch({ type: 'DELETE_TASK', payload: taskIdToDelete });
+      } catch (error) {
+        console.error('Error deleting task:', error);
+        // Handle errors 
+      }
     }
     setShowDeleteDialog(false);
     setTaskIdToDelete(null);
   };
 
   const handleCreateTaskOpen = () => {
-    setModalMode('create'); 
-    setSelectedTask(null); 
+    setModalMode("create");
+    setSelectedTask(null);
     setIsModalOpen(true);
   };
 
   const handleEditTaskOpen = (task: ITask) => {
-    setModalMode('edit');
+    setModalMode("edit");
     setSelectedTask(task);
     setIsModalOpen(true);
   };
@@ -110,30 +115,109 @@ export default function TaskList() {
         </DialogActions>
       </Dialog>
 
+			<h3>TO-DO</h3>
+
       <TableContainer component={Paper} className="mt-4">
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell>Title</TableCell>
-              {isWidth768 && <TableCell>Description</TableCell>}
-              <TableCell className="w-[10%] min-w-[120px]">Status</TableCell>
-              {isWidth1024 && <TableCell>Assignee</TableCell>}
+              <TableCell 
+								className={`${isWidth1024 ? 'w-[20%]' : 'min-w-[150px]'}`}
+							>
+								Title
+							</TableCell>
+              {isWidth768 && <TableCell className={`${isWidth1024 ? 'w-[30%]' : 'min-w-[250px]'}`}>Description</TableCell>}
+              <TableCell className="w-[10%] min-w-[150px]">Status</TableCell>
+              {isWidth1024 && <TableCell className="w-[10%] min-w-[180px]">Assignee</TableCell>}
               <TableCell className="w-[10%] min-w-[120px]">Actions</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {tasks.map((task) => (
+            {state.tasksByStatus.Todo.map((task) => (
               <TableRow key={task.id}>
-                <TableCell>{task.title}</TableCell>
-                {isWidth768 && <TableCell>{task.description}</TableCell>}
-                <TableCell className="w-[10%] min-w-[120px]">
+                <TableCell className={`${isWidth1024 ? 'w-[20%]' : 'min-w-[150px]'}`}>
+									{task.title}
+								</TableCell>
+                {isWidth768 && <TableCell className={`${isWidth1024 ? 'w-[30%]' : 'min-w-[250px]'}`}>{task.description}</TableCell>}
+                <TableCell className="w-[10%] min-w-[150px]">
                   {task.status}
                 </TableCell>
-                {isWidth1024 && <TableCell>{task.assignee}</TableCell>}
+                {isWidth1024 && <TableCell className="w-[10%] min-w-[180px]">{task.assignee}</TableCell>}
                 <TableCell className="w-[10%] min-w-[120px]">
                   <IconButton onClick={() => handleEditTaskOpen(task)}>
                     <EditIcon />
                   </IconButton>
+                  <IconButton onClick={() => handleDelete(task.id)}>
+                    <DeleteIcon />
+                  </IconButton>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+
+			<h3>In-Progress</h3>
+
+			<TableContainer component={Paper} className="mt-4">
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell className={`${isWidth1024 ? 'w-[20%]' : 'min-w-[150px]'}`}>
+								Title
+							</TableCell>
+              {isWidth768 && <TableCell className={`${isWidth1024 ? 'w-[30%]' : 'min-w-[250px]'}`}>Description</TableCell>}
+              <TableCell className="w-[10%] min-w-[150px]">Status</TableCell>
+              {isWidth1024 && <TableCell className="w-[10%] min-w-[180px]">Assignee</TableCell>}
+              <TableCell className="w-[10%] min-w-[120px]">Actions</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {state.tasksByStatus.InProgress.map((task) => (
+              <TableRow key={task.id}>
+                <TableCell className={`${isWidth1024 ? 'w-[20%]' : 'min-w-[150px]'}`}>{task.title}</TableCell>
+                {isWidth768 && <TableCell className={`${isWidth1024 ? 'w-[30%]' : 'min-w-[250px]'}`}>{task.description}</TableCell>}
+                <TableCell className="w-[10%] min-w-[150px]">
+                  {task.status}
+                </TableCell>
+                {isWidth1024 && <TableCell className="w-[10%] min-w-[180px]">{task.assignee}</TableCell>}
+                <TableCell className="w-[10%] min-w-[120px]">
+                  <IconButton onClick={() => handleEditTaskOpen(task)}>
+                    <EditIcon />
+                  </IconButton>
+                  <IconButton onClick={() => handleDelete(task.id)}>
+                    <DeleteIcon />
+                  </IconButton>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+
+			<h3>Completed</h3>
+
+			<TableContainer component={Paper} className="mt-4">
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell className={`${isWidth1024 ? 'w-[20%]' : 'min-w-[150px]'}`}>Title</TableCell>
+              {isWidth768 && <TableCell className={`${isWidth1024 ? 'w-[30%]' : 'min-w-[250px]'}`}>Description</TableCell>}
+              <TableCell className="w-[10%] min-w-[150px]">Status</TableCell>
+              {isWidth1024 && <TableCell className="w-[10%] min-w-[180px]">Assignee</TableCell>}
+              <TableCell className="w-[10%] min-w-[100px]">Actions</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {state.tasksByStatus.Done.map((task) => (
+              <TableRow key={task.id}>
+                <TableCell className={`${isWidth1024 ? 'w-[20%]' : 'min-w-[150px]'}`}>{task.title}</TableCell>
+                {isWidth768 && <TableCell className={`${isWidth1024 ? 'w-[30%]' : 'min-w-[250px]'}`}>{task.description}</TableCell>}
+                <TableCell className="w-[10%] min-w-[150px]">
+                  {task.status}
+                </TableCell>
+                {isWidth1024 && <TableCell className="w-[10%] min-w-[180px]">{task.assignee}</TableCell>}
+                <TableCell className="w-[10%] min-w-[100px]">
                   <IconButton onClick={() => handleDelete(task.id)}>
                     <DeleteIcon />
                   </IconButton>

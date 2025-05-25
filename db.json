@@ -4,32 +4,32 @@
       "id": "1",
       "title": "Complete Project Proposal",
       "description": "Finalize the proposal document and submit it to the client.",
-      "status": "In Progress",
+      "status": "Done",
       "assignee": "John Doe"
     },
     {
       "id": "2",
       "title": "Design User Interface",
       "description": "Create mockups and prototypes for the main dashboard.",
-      "status": "Todo",
+      "status": "Done",
       "assignee": "Jane Smith"
     },
     {
-      "id": 1748155388332,
-      "title": "Create THREE Moodboard",
+      "id": "1748155388332",
+      "title": "Generate 3 Distinct Moodboards",
       "description": "We need to generate 3 distinct moodboards to present the client next week.",
-      "status": "Todo",
+      "status": "In Progress",
       "assignee": "Jeremy Lee"
     },
     {
-      "id": 1748155482752,
+      "id": "1748155482752",
       "title": "User Flows & Information Architecture",
       "description": "Identify the key user flows as well as the required sitemap.",
-      "status": "Todo",
+      "status": "In Progress",
       "assignee": "Torence Tan"
     },
     {
-      "id": 1748156922772,
+      "id": "1748156922772",
       "title": "Meet up with Client",
       "description": "Routine check-in and progress updates.",
       "status": "Todo",

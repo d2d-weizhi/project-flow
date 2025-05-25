@@ -19,6 +19,34 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+h1 {
+  @apply py-2;
+  font-size: 2.2rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  line-height: 1rem;
+  border-bottom: 1px solid #242424;
+}
+
+h2 {
+  @apply py-2 mb-4;
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  line-height: 1rem;
+  border-bottom: 1px solid #242424;
+}
+
+h3 {
+  @apply py-1 mb-2 mt-4;
+  font-size: 0.95rem;
+  font-weight: 400;
+  letter-spacing: 1px;
+  line-height: 1.5rem;
+  text-transform: uppercase;
+  border-bottom: 1px solid #242424;
+}
+
 .modal-overlay {
   background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black overlay */
 }
