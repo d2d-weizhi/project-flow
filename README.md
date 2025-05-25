@@ -90,6 +90,21 @@ src/
   - Used useState to manage form data. 
   - Included validation (using the required attribute).
 
+6. Added Tailwind CSS and MUI components.
+
+  - Followed the Vite Tailwind CSS setup.
+  - Used the Table UI component from MUI.
+  - Styled our custom Window.
+  - Implemented the form field components from MUI.
+  - Added validation.
+  - Split the TaskLists view into 3 sub-sections, each one for a specific status.
+
+7. Added reducer/actions for State Management.
+   
+  - Modified the state management to using reducer/actions.
+  - Also ensured that the state management included 3 arrays for tracking tasks under each status.
+  - TODO: I need to add more documentation to the reducer section so it is more readable.
+
 ## Key Observations and Decisions:
 
 ### Styling Approach:
