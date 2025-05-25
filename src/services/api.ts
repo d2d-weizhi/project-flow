@@ -26,15 +26,15 @@ export const createTask = async (task: ITask): Promise<ITask> => {
 };
 
 // PUT (update) an existing task
-export const updateTask = async (task: ITask): Promise<ITask> => {
-  const response = await fetch(`${API_URL}/tasks/${task.id}`, {
+export const updateTask = async (task: ITask): Promise<void> => {
+	console.log(JSON.stringify(task));
+  await fetch(`${API_URL}/tasks/${task.id}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(task),
   });
-  return response.json();
 };
 
 // DELETE a task by ID

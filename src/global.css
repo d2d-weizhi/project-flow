@@ -5,8 +5,9 @@
   @apply flex p-12 justify-center;
   font-family: "Roboto", system-ui, Avenir, Helvetica, Arial, sans-serif;
   letter-spacing: 1px;
-  line-height: 1.5;
+  line-height: 1.6;
   font-weight: 350;
+  font-size: 1.125rem;
 
   color-scheme: light dark;
   color: #242424;
@@ -16,4 +17,22 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.modal-overlay {
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black overlay */
+}
+
+.form-fields {
+  font-family: "Roboto", system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-weight: 350;
+  letter-spacing: 1px;
+  line-height: 1.5;
+}
+
+.form-buttons {
+  font-family: "Roboto", system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-weight: 350;
+  letter-spacing: 1px;
+  line-height: 1.5;
 }

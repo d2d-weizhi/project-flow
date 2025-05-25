@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, use } from 'react';
 import type { ITask } from '../../services/types';
+import { TextField, Button, MenuItem  } from '@mui/material';
 
 interface TaskFormProps {
   initialTask?: ITask | null; // For editing existing tasks
@@ -13,6 +14,10 @@ export default function TaskForm ({ initialTask, onSubmit, onClose }: TaskFormPr
   const [status, setStatus] = useState<string>('Todo');
   const [assignee, setAssignee] = useState('');
 
+	const [titleError, setTitleError] = useState(false);
+  const [descriptionError, setDescriptionError] = useState(false);
+	const [assigneeError, setAssigneeError] = useState(false);
+
   // Update the form fields if initialTask is provided (for editing)
   useEffect(() => {
     if (initialTask) {
@@ -25,6 +30,14 @@ export default function TaskForm ({ initialTask, onSubmit, onClose }: TaskFormPr
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
+		
+		setTitleError(title.trim() === '');
+    setDescriptionError(description.trim() === '');
+		setAssigneeError(assignee.trim() === '');
+
+		if (title.trim() === '' || description.trim() === '' || assignee.trim() === '') {
+      return; // Stop submission if there are errors
+    }
 
     const newTask: ITask = {
       id: initialTask?.id || Date.now(), // Generate a temporary ID if creating
@@ -34,49 +47,73 @@ export default function TaskForm ({ initialTask, onSubmit, onClose }: TaskFormPr
       assignee,
     };
 
+		console.log(newTask);
+
     onSubmit(newTask);
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="flex flex-col gap-4">
       <h2>{initialTask ? 'Edit Task' : 'Create New Task'}</h2>
-      <div>
-        <label htmlFor="title">Title:</label>
-        <input
-          type="text"
-          id="title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          required 
-        />
+      <TextField 
+        label="Title"
+        variant="outlined" 
+				className="form-fields"
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
+				placeholder={"Enter a Task Title"}
+				error={titleError}
+				helperText={titleError ? 'Title is required' : ''}
+        fullWidth // Makes the input take up full width
+      />
+
+      <TextField
+        label="Description"
+        multiline // Makes it a multiline textarea
+        rows={4} // Sets the initial height (number of rows)
+        variant="outlined"
+				className="form-fields"
+        value={description}
+				placeholder={"Enter a Task Description."}
+        onChange={(e) => setDescription(e.target.value)}
+				error={descriptionError}
+				helperText={descriptionError ? 'Description is required' : ''}
+        fullWidth
+      />
+
+      <TextField
+        label="Status"
+				className="form-fields"
+        select // Makes it a dropdown select
+        value={status}
+        onChange={(e) => setStatus(e.target.value as ITask['status'])}
+        fullWidth
+      >
+        <MenuItem value="Todo">Todo</MenuItem>
+        <MenuItem value="In Progress">In Progress</MenuItem>
+        <MenuItem value="Done">Done</MenuItem>
+      </TextField>
+
+      <TextField 
+        label="Assignee"
+        variant="outlined"
+				className="form-fields"
+        value={assignee}
+				placeholder="Who this task is assigned to"
+        onChange={(e) => setAssignee(e.target.value)}
+				error={assigneeError}
+				helperText={assigneeError ? 'Assignee is required' : ''}
+        fullWidth
+      />
+
+      <div className="flex justify-end gap-4 mt-4"> 
+        <Button variant="contained" type="submit" style={{ fontFamily: "Roboto" }}>
+          Save Task
+        </Button>
+        <Button variant="outlined" onClick={onClose} style={{ fontFamily: "Roboto" }}>
+          Cancel
+        </Button>
       </div>
-      <div>
-        <label htmlFor="description">Description:</label>
-        <textarea
-          id="description"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-        />
-      </div>
-      <div>
-        <label htmlFor="status">Status:</label>
-        <select id="status" value={status} onChange={(e) => setStatus(e.target.value as ITask['status'])}>
-          <option value="Todo">Todo</option>
-          <option value="In Progress">In Progress</option>
-          <option value="Done">Done</option>
-        </select>
-      </div>
-      <div>
-        <label htmlFor="assignee">Assignee:</label>
-        <input
-          type="text"
-          id="assignee"
-          value={assignee}
-          onChange={(e) => setAssignee(e.target.value)}
-        />
-      </div>
-      <button type="submit">Save Task</button>
-      <button type="button" onClick={onClose}>Cancel</button>
     </form>
   );
 };
