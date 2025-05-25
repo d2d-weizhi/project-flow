@@ -1,0 +1,18 @@
+{
+     "tasks": [
+       {
+         "id": 1,
+         "title": "Complete Project Proposal",
+         "description": "Finalize the proposal document and submit it to the client.",
+         "status": "In Progress",
+         "assignee": "John Doe"
+       },
+       {
+         "id": 2,
+         "title": "Design User Interface",
+         "description": "Create mockups and prototypes for the main dashboard.",
+         "status": "Todo",
+         "assignee": "Jane Smith"
+       }
+     ]
+   }

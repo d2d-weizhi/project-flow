@@ -69,3 +69,32 @@ src/
   App.tsx
   index.tsx
 ```
+
+# My Workflow:
+
+1. Set up Project: Created project structure, initialized Git repository, and drafted the README.
+
+2. Implemented Mock API: Set up json-server to simulate a backend API for local development.
+
+3. Created API Service:  Wrote functions in api.ts to handle CRUD operations (GET, POST, PUT, DELETE) for tasks.
+
+4. Built Task List Component (using MUI): 
+
+  - Fetched and displayed tasks in a MUI Table.
+  - Added buttons/icons for Edit and Delete actions using MUI's IconButton.
+  - Implemented responsive design to hide/show columns based on screen width.
+
+5. Created Task Form Component:
+
+  - Built a form using basic HTML elements to handle both creating and editing tasks.
+  - Used useState to manage form data. 
+  - Included validation (using the required attribute).
+
+## Key Observations and Decisions:
+
+### Styling Approach:
+
+- I've opted to use Tailwind CSS for overall layout and text styling, as it provides a rapid development workflow and good control over spacing, colors, and typography.
+- I've decided to use pre-built MUI components for our Buttons, Tables and so on.
+
+- **Important Note:** I've observed that Tailwind CSS classes might not always work as expected when applied directly to some MUI components. To maintain styling consistency and avoid conflicts, I'll use Tailwind CSS primarily for outer layout styling and rely on MUI's styling mechanisms (e.g., the sx prop, custom themes) for styling within MUI components.
