@@ -111,7 +111,7 @@ export default function TaskList({theme}: {theme: string}) {
     <div className="flex flex-col w-full h-max items-start">
       <h2>Task List</h2>
 			
-			<div className="flex w-full h-max>
+			<div className="flex w-full h-max">
 				<div className="flex w-1/2 items-center justify-start">
 					<Button variant="contained" onClick={handleCreateTaskOpen}>
         		Create New Task
