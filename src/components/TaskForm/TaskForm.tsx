@@ -3,12 +3,13 @@ import type { ITask } from '../../services/types';
 import { TextField, Button, MenuItem  } from '@mui/material';
 
 interface TaskFormProps {
+	theme: string;
   initialTask?: ITask | null; // For editing existing tasks
   onSubmit: (task: ITask) => void;
   onClose: () => void;
 }
 
-export default function TaskForm ({ initialTask, onSubmit, onClose }: TaskFormProps) {
+export default function TaskForm ({ theme, initialTask, onSubmit, onClose }: TaskFormProps) {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [status, setStatus] = useState<string>('Todo');
@@ -57,7 +58,7 @@ export default function TaskForm ({ initialTask, onSubmit, onClose }: TaskFormPr
       <h2>{initialTask ? 'Edit Task' : 'Create New Task'}</h2>
       <TextField 
         label="Title"
-        variant="outlined" 
+        variant={theme === "light" ? "outlined" : "filled"} 
 				className="form-fields"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
@@ -71,7 +72,7 @@ export default function TaskForm ({ initialTask, onSubmit, onClose }: TaskFormPr
         label="Description"
         multiline // Makes it a multiline textarea
         rows={4} // Sets the initial height (number of rows)
-        variant="outlined"
+        variant={theme === "light" ? "outlined" : "filled"}
 				className="form-fields"
         value={description}
 				placeholder={"Enter a Task Description."}
@@ -85,6 +86,7 @@ export default function TaskForm ({ initialTask, onSubmit, onClose }: TaskFormPr
         label="Status"
 				className="form-fields"
         select // Makes it a dropdown select
+				variant={theme === "light" ? "outlined" : "filled"}
         value={status}
         onChange={(e) => setStatus(e.target.value as ITask['status'])}
         fullWidth
@@ -96,7 +98,7 @@ export default function TaskForm ({ initialTask, onSubmit, onClose }: TaskFormPr
 
       <TextField 
         label="Assignee"
-        variant="outlined"
+        {theme === "light" ? "outlined" : "filled"}
 				className="form-fields"
         value={assignee}
 				placeholder="Who this task is assigned to"
