@@ -34,6 +34,13 @@ export default function TaskList({theme}: {theme: string}) {
   const { state, dispatch } = useContext(TasksContext);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalMode, setModalMode] = useState<"create" | "edit">("create");
+
+	// Discovered the delay in updating the state and refreshing the UI.
+	// Decided to use these arrays as a way to maintain a fresh copy.
+	const [todoTasks, setTodoTasks] = useState<ITask[]>([]);
+	const [inProgressTasks, setInProgressTasks] = useState<ITask[]>([]);
+	const [doneTasks, setDoneTasks] = useState<ITask[]>([]);
+	
   const [selectedTask, setSelectedTask] = useState<ITask | null>(null);
 	const [searchFilter, setSearchFilter] = useState<string>("");
 	const [isTodoTasksEmpty, setIsTodoTasksEmpty] = useState<boolean>(false);
@@ -52,7 +59,11 @@ export default function TaskList({theme}: {theme: string}) {
       dispatch({ type: "FETCH_TASKS", payload: fetchedTasks });
     };
     fetchTasks();
-  }, [dispatch]); // Add dispatch to the dependency array
+		// Always get a fresh copy.
+		setTodoTasks(state.tasksByStatus.Todo);
+		setInProgressTasks(state.taskByStatus.InProgress);
+		setDoneTasks(state.taskByStatus.Done);
+  }, [dispatch, todoTasks, inProgressTasks, doneTasks]); // Add dispatch to the dependency array
 
   const handleCreateTask = async (newTask: ITask) => {
     try {
