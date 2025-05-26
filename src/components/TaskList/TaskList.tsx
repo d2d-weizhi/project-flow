@@ -440,7 +440,7 @@ export default function TaskList({theme}: {theme: string}) {
             onClick={(e) => e.stopPropagation()} // Prevent clicks from closing the modal
           >
             <button
-              className="absolute top-2 right-2 cursor-pointer text-gray-500 hover:text-gray-700 p-2" // Position the button
+              className={`absolute top-2 right-2 cursor-pointer ${theme === "light" ? "text-gray-500 hover:text-gray-700" : "text-gray-200 hover:text-white-50"} p-2`} // Position the button
               onClick={handleCloseModal}
             >
               <CloseIcon />
