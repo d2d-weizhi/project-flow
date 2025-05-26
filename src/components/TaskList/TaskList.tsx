@@ -44,6 +44,7 @@ export default function TaskList({theme}: {theme: string}) {
 
   const isWidth1024 = useMediaQuery("(min-width: 1024px)");
   const isWidth768 = useMediaQuery("(min-width: 768px)");
+	const isMobilePortrait = useMediaQuery("(max-width: 720px)");
 
   useEffect(() => {
     const fetchTasks = async () => {
@@ -176,9 +177,11 @@ export default function TaskList({theme}: {theme: string}) {
 	                  <span className={`${theme === "dark" ? "text-white" : "text-black"}`}>Description</span>
 	                </TableCell>
 	              )}
-	              <TableCell className="w-[10%] min-w-[150px]">
-									<span className={`${theme === "dark" ? "text-white" : "text-black"}`}>Status</span>
-								</TableCell>
+								{!isMobilePortrait && (
+		              <TableCell className="w-[10%] min-w-[150px]">
+										<span className={`${theme === "dark" ? "text-white" : "text-black"}`}>Status</span>
+									</TableCell>
+								)}
 	              {isWidth1024 && (
 	                <TableCell className="w-[10%] min-w-[180px]">
 	                  <span className={`${theme === "dark" ? "text-white" : "text-black"}`}>Assignee</span>
@@ -206,9 +209,11 @@ export default function TaskList({theme}: {theme: string}) {
 		                  <span className={`${theme === "dark" ? "text-white" : "text-black"}`}>{task.description}</span>
 		                </TableCell>
 		              )}
-		              <TableCell className="w-[10%] min-w-[150px]">
-		                <span className={`${theme === "dark" ? "text-white" : "text-black"}`}>{task.status}</span>
-		              </TableCell>
+									{!isMobilePortrait && (
+			              <TableCell className="w-[10%] min-w-[150px]">
+			                <span className={`${theme === "dark" ? "text-white" : "text-black"}`}>{task.status}</span>
+			              </TableCell>
+									)}
 		              {isWidth1024 && (
 		                  <TableCell className="w-[10%] min-w-[180px]">
 		                    <span className={`${theme === "dark" ? "text-white" : "text-black"}`}>{task.assignee}</span>
@@ -264,11 +269,13 @@ export default function TaskList({theme}: {theme: string}) {
 										</span>
 	                </TableCell>
 	              )}
-	              <TableCell className="w-[10%] min-w-[150px]">
-									<span className={`${theme === "dark" ? "text-white" : "text-black"}`}>
-										Status
-									</span>
-								</TableCell>
+								{!isMobilePortait && (
+		              <TableCell className="w-[10%] min-w-[150px]">
+										<span className={`${theme === "dark" ? "text-white" : "text-black"}`}>
+											Status
+										</span>
+									</TableCell>
+								)}
 	              {isWidth1024 && (
 	                <TableCell className="w-[10%] min-w-[180px]">
 										<span className={`${theme === "dark" ? "text-white" : "text-black"}`}>
@@ -302,11 +309,13 @@ export default function TaskList({theme}: {theme: string}) {
 											</span>
 	                  </TableCell>
 	                )}
-	                <TableCell className="w-[10%] min-w-[150px]">
-										<span className={`${theme === "dark" ? "text-white" : "text-black"}`}>
-	                  	{task.status}
-										</span>
-	                </TableCell>
+									{!isMobilePortrait && (
+		                <TableCell className="w-[10%] min-w-[150px]">
+											<span className={`${theme === "dark" ? "text-white" : "text-black"}`}>
+		                  	{task.status}
+											</span>
+		                </TableCell>
+									)}
 	                {isWidth1024 && (
 	                  <TableCell className="w-[10%] min-w-[180px]">
 											<span className={`${theme === "dark" ? "text-white" : "text-black"}`}>
@@ -364,11 +373,13 @@ export default function TaskList({theme}: {theme: string}) {
 										</span>
 	                </TableCell>
 	              )}
-	              <TableCell className="w-[10%] min-w-[150px]">
-									<span className={`${theme === "dark" ? "text-white" : "text-black"}`}>
-										Status
-									</span>
-								</TableCell>
+								{!isMobilePortrait && (
+		              <TableCell className="w-[10%] min-w-[150px]">
+										<span className={`${theme === "dark" ? "text-white" : "text-black"}`}>
+											Status
+										</span>
+									</TableCell>
+								)}
 	              {isWidth1024 && (
 	                <TableCell className="w-[10%] min-w-[180px]">
 										<span className={`${theme === "dark" ? "text-white" : "text-black"}`}>
@@ -402,11 +413,13 @@ export default function TaskList({theme}: {theme: string}) {
 											</span>
 	                  </TableCell>
 	                )}
-	                <TableCell className="w-[10%] min-w-[150px]">
-										<span className={`${theme === "dark" ? "text-white" : "text-black"}`}>
-	                  	{task.status}
-										</span>
-	                </TableCell>
+									{!isMobilePortrait && (
+		                <TableCell className="w-[10%] min-w-[150px]">
+											<span className={`${theme === "dark" ? "text-white" : "text-black"}`}>
+		                  	{task.status}
+											</span>
+		                </TableCell>
+									)}
 	                {isWidth1024 && (
 	                  <TableCell className="w-[10%] min-w-[180px]">
 											<span className={`${theme === "dark" ? "text-white" : "text-black"}`}>
