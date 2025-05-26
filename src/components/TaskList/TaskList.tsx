@@ -61,8 +61,8 @@ export default function TaskList({theme}: {theme: string}) {
     fetchTasks();
 		// Always get a fresh copy.
 		setTodoTasks(state.tasksByStatus.Todo);
-		setInProgressTasks(state.taskByStatus.InProgress);
-		setDoneTasks(state.taskByStatus.Done);
+		setInProgressTasks(state.tasksByStatus.InProgress);
+		setDoneTasks(state.tasksByStatus.Done);
   }, [dispatch, todoTasks, inProgressTasks, doneTasks]); // Add dispatch to the dependency array
 
   const handleCreateTask = async (newTask: ITask) => {
