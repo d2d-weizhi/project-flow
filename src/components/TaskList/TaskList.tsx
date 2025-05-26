@@ -446,6 +446,7 @@ export default function TaskList({theme}: {theme: string}) {
               <CloseIcon />
             </button>
             <TaskForm
+							theme={theme}
               initialTask={modalMode === "edit" ? selectedTask : undefined}
               onSubmit={
                 modalMode === "edit" ? handleUpdateTask : handleCreateTask
