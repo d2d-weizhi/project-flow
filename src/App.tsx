@@ -42,7 +42,7 @@ function App() {
   return (
     <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>
       <CssBaseline />
-      <div className={`w-screen h-screen p-16 min-w-[700px] ${theme}-theme`}> 
+      <div className={`w-screen h-screen p-16 min-w-[360px] ${theme}-theme`}> 
         <div style={{ position: 'fixed', top: 16, right: 16 }}>
           <Switch checked={theme === 'dark'} onChange={toggleTheme} />
         </div>
