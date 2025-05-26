@@ -35,7 +35,7 @@ export default function TaskList({theme}: {theme: string}) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalMode, setModalMode] = useState<"create" | "edit">("create");
   const [selectedTask, setSelectedTask] = useState<ITask | null>(null);
-
+	const [searchFilter, setSearchFilter] = useState<string>("");
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
   const [taskIdToDelete, setTaskIdToDelete] = useState<string | null>(null);
 
@@ -118,8 +118,7 @@ export default function TaskList({theme}: {theme: string}) {
       		</Button>
 				</div>
 				<div className="flex w-1/2 items-center justify-end">
-					<TextField variant="standard" />
-					<Button variant="contained">Search</Button>
+					<TextField variant="standard" className="mr-2 w-32" value={searchFilter} placeholder="Enter keywords here..." />
 				</div>
 			</div>
       
