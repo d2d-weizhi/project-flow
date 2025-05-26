@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useMediaQuery } from '@mui/material';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import TaskList from './components/TaskList/TaskList';
@@ -18,6 +19,7 @@ const darkTheme = createTheme({
 
 function App() {
   const [theme, setTheme] = useState('light');
+  const isMobilePortrait = useMediaQuery("(max-width: 720px)");
 
   useEffect(() => {
     const storedTheme = localStorage.getItem('theme');
@@ -42,7 +44,7 @@ function App() {
   return (
     <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>
       <CssBaseline />
-      <div className={`w-screen h-screen p-16 sm:p-8 min-w-[360px] ${theme}-theme`}> 
+      <div className={`w-screen h-screen ${isMobilePortrait ? "p-8" : "p-16"} min-w-[360px] ${theme}-theme`}> 
         <div style={{ position: 'fixed', top: 16, right: 16 }}>
           <Switch checked={theme === 'dark'} onChange={toggleTheme} />
         </div>
