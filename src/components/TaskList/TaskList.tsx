@@ -436,7 +436,7 @@ export default function TaskList({theme}: {theme: string}) {
           className="modal-overlay fixed inset-0 flex items-center justify-center z-50 md:bg-transparent" // Positioning
         >
           <div
-            className="bg-white p-4 rounded-md shadow-md max-w-[600px] w-full max-h-[90vh] overflow-y-auto relative md:max-h-[80vh] md:w-[90%]"
+            className={`${theme === "light" ? "light-theme" : "dark-theme"} p-4 rounded-md shadow-md max-w-[600px] w-full max-h-[90vh] overflow-y-auto relative md:max-h-[80vh] md:w-[90%]`}
             onClick={(e) => e.stopPropagation()} // Prevent clicks from closing the modal
           >
             <button
