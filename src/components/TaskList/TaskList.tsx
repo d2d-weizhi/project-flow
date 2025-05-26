@@ -269,7 +269,7 @@ export default function TaskList({theme}: {theme: string}) {
 										</span>
 	                </TableCell>
 	              )}
-								{!isMobilePortait && (
+								{!isMobilePortrait && (
 		              <TableCell className="w-[10%] min-w-[150px]">
 										<span className={`${theme === "dark" ? "text-white" : "text-black"}`}>
 											Status
