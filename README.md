@@ -37,7 +37,7 @@ ProjectFlow will have a single-page application (SPA) structure with a primary f
 
 ## Component Structure:
 
-The application will follow a modular component-based architecture:
+The application will follow a modular component-based architecture. Below is an example:
 
 ```
 src/
