@@ -122,8 +122,8 @@ export default function TaskList({theme}: {theme: string}) {
 				</div>
 				<div className="flex w-1/2 items-center justify-end">
 					<TextField 
-						variant="standard" 
-						className="mr-2 w-[40%] min-w-[180px]" 
+						variant={theme === "light" ? "standard" : "filled"} 
+						className={`mr-2 w-[40%] min-w-[180px] ${theme === "dark" && "text-white"}`}
 						value={searchFilter} 
 						placeholder="Enter keywords here..." 
 						onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
