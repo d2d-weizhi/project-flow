@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { TasksContext } from "../../context/TasksContext";
 import {
   createTask,
@@ -118,7 +118,13 @@ export default function TaskList({theme}: {theme: string}) {
       		</Button>
 				</div>
 				<div className="flex w-1/2 items-center justify-end">
-					<TextField variant="standard" className="mr-2 w-32" value={searchFilter} placeholder="Enter keywords here..." />
+					<TextField 
+						variant="standard" 
+						className="mr-2 w-32" 
+						value={searchFilter} 
+						placeholder="Enter keywords here..." 
+						onChange={(event: React.ChangeEvent<HTMLInputElement>) => setSearchFilter(event.target.value)}
+					/>
 				</div>
 			</div>
       
