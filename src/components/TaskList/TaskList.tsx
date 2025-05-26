@@ -179,7 +179,7 @@ export default function TaskList({theme}: {theme: string}) {
             </TableRow>
           </TableHead>
           <TableBody className={`${theme}-theme-table`}>
-						{state.tasksByStatus.Todo.filter(task => task.title.includes(searchFilter)).map((task) => (
+						{state.tasksByStatus.Todo.filter(task => task.title.toLowerCase().includes(searchFilter)).map((task) => (
 	            <TableRow key={task.id}>
 	              <TableCell
 	                className={`${isWidth1024 ? "w-[20%]" : "min-w-[150px]"}`}
@@ -266,7 +266,7 @@ export default function TaskList({theme}: {theme: string}) {
             </TableRow>
           </TableHead>
           <TableBody className={`${theme}-theme-table`}>
-            {state.tasksByStatus.InProgress.map((task) => (
+            {state.tasksByStatus.InProgress.filter(task => task.title.toLowerCase().includes(searchFilter)).map((task) => (
               <TableRow key={task.id}>
                 <TableCell
                   className={`${isWidth1024 ? "w-[20%]" : "min-w-[150px]"}`}
@@ -360,7 +360,7 @@ export default function TaskList({theme}: {theme: string}) {
             </TableRow>
           </TableHead>
           <TableBody className={`${theme}-theme-table`}>
-            {state.tasksByStatus.Done.map((task) => (
+            {state.tasksByStatus.Done.filter(task => task.title.toLowerCase().includes(searchFilter)).map((task) => (
               <TableRow key={task.id}>
                 <TableCell
                   className={`${isWidth1024 ? "w-[20%]" : "min-w-[150px]"}`}
