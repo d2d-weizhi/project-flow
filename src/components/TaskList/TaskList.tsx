@@ -73,6 +73,9 @@ export default function TaskList({theme}: {theme: string}) {
 			setTodoTasks(state.tasksByStatus.Todo);
 			setInProgressTasks(state.tasksByStatus.InProgress);
 			setDoneTasks(state.tasksByStatus.Done);
+			setIsTodoTasksEmpty(state.tasksByStatus.Todo.filter(task => task.title.toLowerCase().includes(event.target.value)).length === 0);
+			setIsInProgressTasksEmpty(state.tasksByStatus.InProgress.filter(task => task.title.toLowerCase().includes(event.target.value)).length === 0);
+			setIsDoneTasksEmpty(state.tasksByStatus.Done.filter(task => task.title.toLowerCase().includes(event.target.value)).length === 0);
     } catch (error) {
       console.error("Error creating task:", error);
       // Handle errors (e.g., display an error message to the user)
@@ -87,6 +90,9 @@ export default function TaskList({theme}: {theme: string}) {
 			setTodoTasks(state.tasksByStatus.Todo);
 			setInProgressTasks(state.tasksByStatus.InProgress);
 			setDoneTasks(state.tasksByStatus.Done);
+			setIsTodoTasksEmpty(state.tasksByStatus.Todo.filter(task => task.title.toLowerCase().includes(event.target.value)).length === 0);
+			setIsInProgressTasksEmpty(state.tasksByStatus.InProgress.filter(task => task.title.toLowerCase().includes(event.target.value)).length === 0);
+			setIsDoneTasksEmpty(state.tasksByStatus.Done.filter(task => task.title.toLowerCase().includes(event.target.value)).length === 0);
     } catch (error) {
       console.error("Error updating task:", error);
       // Handle errors
@@ -106,6 +112,9 @@ export default function TaskList({theme}: {theme: string}) {
 				setTodoTasks(state.tasksByStatus.Todo);
 				setInProgressTasks(state.tasksByStatus.InProgress);
 				setDoneTasks(state.tasksByStatus.Done);
+				setIsTodoTasksEmpty(state.tasksByStatus.Todo.filter(task => task.title.toLowerCase().includes(event.target.value)).length === 0);
+				setIsInProgressTasksEmpty(state.tasksByStatus.InProgress.filter(task => task.title.toLowerCase().includes(event.target.value)).length === 0);
+				setIsDoneTasksEmpty(state.tasksByStatus.Done.filter(task => task.title.toLowerCase().includes(event.target.value)).length === 0);
       } catch (error) {
         console.error("Error deleting task:", error);
         // Handle errors
@@ -180,7 +189,7 @@ export default function TaskList({theme}: {theme: string}) {
 			
 			{isTodoTasksEmpty ? (
 				<div className="flex w-full h-20 items-center justify-center">
-					You have no To-Do Tasks for now.
+					{searchFilter === "" ? "You have no To-Do Tasks for now." : "There are no matching To-Do tasks."}
 				</div>
 			) : (
 				<TableContainer component={Paper} className={`mt-4`}>
@@ -268,7 +277,7 @@ export default function TaskList({theme}: {theme: string}) {
 			
 			{isInProgressTasksEmpty ? (
 				<div className="flex w-full h-20 items-center justify-center">
-					You have no In-Progress Tasks for now.
+					{searchFilter === "" ? "You have no In-Progress Tasks for now." : "There are no matching In-Progress tasks."}
 				</div>
 			) : (
 				<TableContainer component={Paper} className="mt-4">
@@ -372,7 +381,7 @@ export default function TaskList({theme}: {theme: string}) {
 
 			{isDoneTasksEmpty ? (
 				<div className="flex w-full h-20 items-center justify-center">
-					You have not completed any tasks yet.
+					{searchFilter === "" ? "You have no Completed Tasks for now." : "There are no matching Completed tasks."}
 				</div>
 			) : (
 				<TableContainer component={Paper} className="mt-4">
