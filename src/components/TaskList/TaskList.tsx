@@ -243,6 +243,7 @@ export default function TaskList({theme}: {theme: string}) {
 		                )}
 		                <TableCell className="w-[10%] min-w-[120px]">
 		                  <IconButton onClick={() => handleEditTaskOpen(task)} 
+												className="cursor-pointer"
 												style={{
 													color: theme === "dark" ? "white" : "black",
 												}}	
@@ -250,6 +251,7 @@ export default function TaskList({theme}: {theme: string}) {
 		                    <EditIcon />
 		                  </IconButton>
 		                  <IconButton onClick={() => handleDelete(task.id)}
+												className="cursor-pointer"
 												style={{
 													color: theme === "dark" ? "white" : "black",
 												}}		
@@ -346,14 +348,18 @@ export default function TaskList({theme}: {theme: string}) {
 	                  </TableCell>
 	                )}
 	                <TableCell className="w-[10%] min-w-[120px]">
-	                  <IconButton onClick={() => handleEditTaskOpen(task)}
+	                  <IconButton 
+											onClick={() => handleEditTaskOpen(task)}
+											className="cursor-pointer"
 											style={{
 												color: theme === "dark" ? "white" : "black",
 											}}	
 										>
 	                    <EditIcon />
 	                  </IconButton>
-	                  <IconButton onClick={() => handleDelete(task.id)}
+	                  <IconButton 
+											onClick={() => handleDelete(task.id)}
+											className="cursor-pointer"
 											style={{
 												color: theme === "dark" ? "white" : "black",
 											}}
@@ -450,7 +456,9 @@ export default function TaskList({theme}: {theme: string}) {
 	                  </TableCell>
 	                )}
 	                <TableCell className="w-[10%] min-w-[100px]">
-	                  <IconButton onClick={() => handleDelete(task.id)}
+	                  <IconButton 
+											onClick={() => handleDelete(task.id)}
+											className="cursor-pointer"
 											style={{
 												color: theme === "dark" ? "white" : "black",
 											}}
