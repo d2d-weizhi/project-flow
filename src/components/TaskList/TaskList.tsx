@@ -52,7 +52,7 @@ export default function TaskList({theme}: {theme: string}) {
       dispatch({ type: "FETCH_TASKS", payload: fetchedTasks });
     };
     fetchTasks();
-  }, [dispatch]); // Add dispatch to the dependency array
+  }, [dispatch, state]); // Add dispatch to the dependency array
 
   const handleCreateTask = async (newTask: ITask) => {
     try {
