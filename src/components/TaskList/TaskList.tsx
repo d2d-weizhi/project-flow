@@ -81,6 +81,9 @@ export default function TaskList({theme}: {theme: string}) {
       await updateTask(updatedTask);
       dispatch({ type: "UPDATE_TASK", payload: updatedTask });
       handleCloseModal();
+			setTodoTasks(state.tasksByStatus.Todo);
+			setInProgressTasks(state.tasksByStatus.InProgress);
+			setDoneTasks(state.tasksByStatus.Done);
     } catch (error) {
       console.error("Error updating task:", error);
       // Handle errors
@@ -97,6 +100,9 @@ export default function TaskList({theme}: {theme: string}) {
       try {
         await deleteTask(taskIdToDelete);
         dispatch({ type: "DELETE_TASK", payload: taskIdToDelete });
+				setTodoTasks(state.tasksByStatus.Todo);
+				setInProgressTasks(state.tasksByStatus.InProgress);
+				setDoneTasks(state.tasksByStatus.Done);
       } catch (error) {
         console.error("Error deleting task:", error);
         // Handle errors
