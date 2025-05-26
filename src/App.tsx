@@ -53,7 +53,7 @@ function App() {
               color: theme === "light" ? "#121212" : "#fefefe"
             }}
           >
-            {theme === "light" ? (<LightModeIcon />) : <DarkModeIcon />} theme</div>
+            {theme === "light" ? (<LightModeIcon />) : <DarkModeIcon />}</div>
           <Switch checked={theme === 'dark'} onChange={toggleTheme} />
         </div>
         <div className="flex-1 w-full justify-start items-start">
