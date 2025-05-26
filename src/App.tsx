@@ -44,11 +44,14 @@ function App() {
   return (
     <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>
       <CssBaseline />
-      <div className={`w-screen h-screen ${isMobilePortrait ? "p-8" : "p-16"} min-w-[360px] ${theme}-theme`}> 
-        <div style={{ position: 'fixed', top: 16, right: 16 }}>
+      <div className={`flex flex-col w-screen h-screen ${isMobilePortrait ? "p-8" : "p-16"} min-w-[360px] ${theme}-theme`}> 
+        <div className="flex w-full h-max justify-end items-center">
+          <div className="flex w-max h-max items-center mr-2">Switch to {theme === "light" ? "dark" : "light"} theme</div>
           <Switch checked={theme === 'dark'} onChange={toggleTheme} />
         </div>
-        <TaskList theme={theme} />
+        <div className="flex-1 w-full justify-start items-start">
+          <TaskList theme={theme} />
+        </div>
       </div>
     </ThemeProvider>
   );
