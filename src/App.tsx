@@ -4,6 +4,8 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import TaskList from './components/TaskList/TaskList';
 import Switch from '@mui/material/Switch';
+import LightModeIcon from '@mui/icons-material/LightMode';
+import DarkModeIcon from '@mui/icons-material/DarkMode';
 
 const lightTheme = createTheme({
   palette: {
@@ -46,7 +48,12 @@ function App() {
       <CssBaseline />
       <div className={`flex flex-col w-screen h-screen ${isMobilePortrait ? "p-8" : "p-16"} min-w-[360px] ${theme}-theme`}> 
         <div className="flex w-full h-max justify-end items-center">
-          <div className="flex w-max h-max items-center mr-2">Switch to {theme === "light" ? "dark" : "light"} theme</div>
+          <div className="flex w-max h-max items-center mr-2"
+            style={{
+              color: theme === "light" ? "#121212" : "#fefefe"
+            }}
+          >
+            {theme === "light" ? (<LightModeIcon />) : <DarkModeIcon />} theme</div>
           <Switch checked={theme === 'dark'} onChange={toggleTheme} />
         </div>
         <div className="flex-1 w-full justify-start items-start">
