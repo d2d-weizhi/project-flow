@@ -5,6 +5,7 @@ ProjectFlow is a prototype task management application built with React that mak
 ## Key Features:
 
 - **Task Management**: Create, edit, delete, and assign tasks with detailed descriptions and statuses.
+- **Search/Filter**: Added the search/filter text field, so users can do a quick search in real-time.
 - **Mock API Integration**: Simulates real-world API interactions for data persistence.
 - **State Management with Reducer**: Ensures efficient and predictable data flow.
 - **Responsive Design**: Optimised for both desktop and mobile devices.
@@ -17,7 +18,6 @@ ProjectFlow is a prototype task management application built with React that mak
 
 Due to time constraints, some of the following features/functionalities were not implemented. They include:
 - User Access
-- Filtering & Search
 
 ---
 
@@ -112,6 +112,7 @@ src/
 
   - For now, the MUI table is able to toggle between dark and light mode, but it is a simple implementation. Perhaps not the most effective. With a little more time, it can definitely be achieved.
   - Created simple CSS classes in `global.css` so that we can easily insert the right class into the relevant components and tags.
+  - Also added the default MUI ThemeProvider so it would be easier to switch between dark/light themes for the UI components themselves.
 
 9.  Using `localStorage` for unique user sessions.
 
@@ -130,11 +131,11 @@ src/
 
 ### Functionality Choices:
 
-- **Prioritizing Core Features**: Given the time constraints of this assignment, I focused on delivering a solid foundation with core CRUD (Create, Read, Update, Delete) functionality for tasks. This involved building a user-friendly Task List and Task Form.
+- **Prioritizing Core Features**: Given the time constraints of this assignment, I focused on delivering a solid foundation with core CRUD (Create, Read, Update, Delete) functionality for tasks. This involved building a user-friendly Task List and Task Form. I've also added the search/filter functionality considering that it is one of the most important features of any data-driven applications.
 - **Local Storage for Persistence (Unique User Sessions)**: To provide a basic level of data persistence and simulate unique user sessions, I implemented localStorage to store task data. This approach avoids the need for a full backend database setup, which would have exceeded the scope of this assignment. 
-- **Dark and Light Theme**: To enhance the user experience, I implemented a dark and light theme switcher, allowing users to customize their visual preference. This feature leverages CSS variables and conditional class names for efficient theme toggling.
+- **Dark and Light Theme**: To enhance the user experience, I implemented a dark and light theme switcher, allowing users to customize their visual preference. I have added the more standard MUI dark/light ThemeProvider for a more consistent look and feel across their components.
 
 ### Collaboration and Future Enhancements:
 
 - **Accelerated Development with Gemini**: I collaborated with Gemini, a large language model, to significantly speed up the development process. Gemini assisted in generating code snippets, suggesting solutions, and identifying potential issues. I maintained a hands-on approach, thoroughly testing and modifying the generated code to ensure its correctness and alignment with best practices.
-- **Drag-and-Drop and Filtering (Future Considerations)**: While time constraints prevented me from implementing advanced features like drag-and-drop task management and filtering within the Task List, I recognize their value and plan to explore them in future iterations of this project.
+- **Drag-and-Drop (Future Considerations)**: While time constraints prevented me from implementing advanced features like drag-and-drop task management within the Task List, I recognize its value and plan to explore them in future iterations of this project.
