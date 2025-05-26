@@ -115,13 +115,13 @@ export default function TaskList({theme}: {theme: string}) {
     <div className="flex flex-col w-full h-max items-start">
       <h2>Task List</h2>
 			
-			<div className="flex w-full h-max">
-				<div className="flex w-1/2 items-center justify-start">
+			<div className={`flex ${isMobilePortrait && "flex-col flex-col-reversed"} w-full h-max`}>
+				<div className={`flex ${isMobilePortrait ? "w-full" : "w-1/2"} items-center justify-start`}>
 					<Button variant="contained" onClick={handleCreateTaskOpen}>
         		Create New Task
       		</Button>
 				</div>
-				<div className="flex w-1/2 items-center justify-end">
+				<div className={`flex ${isMobilePortrait ? "w-full" : "w-1/2"} items-center justify-start`}>
 					<TextField 
 						variant={theme === "light" ? "standard" : "filled"} 
 						className={`mr-2 w-[40%] min-w-[180px] ${theme === "dark" && "text-white"}`}
