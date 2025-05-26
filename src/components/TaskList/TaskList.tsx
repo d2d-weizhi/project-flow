@@ -116,15 +116,17 @@ export default function TaskList({theme}: {theme: string}) {
       <h2>Task List</h2>
 			
 			<div className={`flex ${isMobilePortrait && "flex-col flex-col-reversed"} w-full h-max`}>
-				<div className={`flex ${isMobilePortrait ? "w-full" : "w-1/2"} items-center justify-start`}>
-					<Button variant="contained" onClick={handleCreateTaskOpen}>
+				<div className={`flex ${isMobilePortrait ? "w-full mb-4" : "w-1/2"} items-center justify-start`}>
+					<Button variant="contained" onClick={handleCreateTaskOpen}
+						className={`${isMobilePortrait && "w-full h-9"}`}
+					>
         		Create New Task
       		</Button>
 				</div>
 				<div className={`flex ${isMobilePortrait ? "w-full" : "w-1/2"} items-center justify-start`}>
 					<TextField 
 						variant={theme === "light" ? "standard" : "filled"} 
-						className={`mr-2 w-[40%] min-w-[180px] ${theme === "dark" && "text-white"}`}
+						className={`mr-2 w-[40%] min-w-[180px] ${isMobilePortrait && "w-full"} ${theme === "dark" && "text-white"}`}
 						value={searchFilter} 
 						placeholder="Enter keywords here..." 
 						onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
