@@ -179,7 +179,7 @@ export default function TaskList({theme}: {theme: string}) {
             </TableRow>
           </TableHead>
           <TableBody className={`${theme}-theme-table`}>
-            {state.tasksByStatus.Todo.map((task) => (
+            {state.tasksByStatus.Todo.filter(task => searchFilter !== "" ? task.title.indexOf(searchFilter) !== -1 : task.title === "").map((task) => (
               <TableRow key={task.id}>
                 <TableCell
                   className={`${isWidth1024 ? "w-[20%]" : "min-w-[150px]"}`}
