@@ -70,6 +70,9 @@ export default function TaskList({theme}: {theme: string}) {
       const createdTask = await createTask(newTask);
       dispatch({ type: "CREATE_TASK", payload: createdTask });
       handleCloseModal();
+			setTodoTasks(state.tasksByStatus.Todo);
+			setInProgressTasks(state.tasksByStatus.InProgress);
+			setDoneTasks(state.tasksByStatus.Done);
     } catch (error) {
       console.error("Error creating task:", error);
       // Handle errors (e.g., display an error message to the user)
