@@ -98,7 +98,7 @@ export default function TaskForm ({ theme, initialTask, onSubmit, onClose }: Tas
 
       <TextField 
         label="Assignee"
-        {theme === "light" ? "outlined" : "filled"}
+        variant={theme === "light" ? "outlined" : "filled"}
 				className="form-fields"
         value={assignee}
 				placeholder="Who this task is assigned to"
