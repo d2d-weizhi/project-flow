@@ -123,7 +123,7 @@ export default function TaskList({theme}: {theme: string}) {
         		Create New Task
       		</Button>
 				</div>
-				<div className={`flex ${isMobilePortrait ? "w-full" : "w-1/2"} items-center justify-start`}>
+				<div className={`flex ${isMobilePortrait ? "w-full" : "w-1/2"} items-center justify-end`}>
 					<TextField 
 						variant={theme === "light" ? "standard" : "filled"} 
 						className={`mr-2 w-[40%] min-w-[180px] ${isMobilePortrait && "w-full"} ${theme === "dark" && "text-white"}`}
