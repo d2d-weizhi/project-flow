@@ -41,7 +41,7 @@ export default function TaskForm ({ theme, initialTask, onSubmit, onClose }: Tas
     }
 
     const newTask: ITask = {
-      id: (initialTask?.id || Date.now()).toString(), // Generate a temporary ID if creating
+      id: initialTask?.id.toString() || Date.now().toString(), // Generate a temporary ID if creating
       title,
       description,
       status,
