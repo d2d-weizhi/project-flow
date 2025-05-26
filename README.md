@@ -18,6 +18,7 @@ ProjectFlow is a prototype task management application built with React that mak
 
 Due to time constraints, some of the following features/functionalities were not implemented. They include:
 - User Access
+- Drag and Drop Feature
 
 ---
 
