@@ -179,25 +179,24 @@ export default function TaskList({theme}: {theme: string}) {
             </TableRow>
           </TableHead>
           <TableBody className={`${theme}-theme-table`}>
-						{searchFilter !== "" ? (
-							{state.tasksByStatus.Todo.filter(task => task.title.includes(searchFilter)).map((task) => (
-	              <TableRow key={task.id}>
+						{state.tasksByStatus.Todo.filter(task => task.title.includes(searchFilter)).map((task) => (
+	            <TableRow key={task.id}>
+	              <TableCell
+	                className={`${isWidth1024 ? "w-[20%]" : "min-w-[150px]"}`}
+	              >
+	                <span className={`${theme === "dark" ? "text-white" : "text-black"}`}>{task.title}</span>
+	              </TableCell>
+	              {isWidth768 && (
 	                <TableCell
-	                  className={`${isWidth1024 ? "w-[20%]" : "min-w-[150px]"}`}
+	                  className={`${isWidth1024 ? "w-[30%]" : "min-w-[250px]"}`}
 	                >
-	                  <span className={`${theme === "dark" ? "text-white" : "text-black"}`}>{task.title}</span>
+	                  <span className={`${theme === "dark" ? "text-white" : "text-black"}`}>{task.description}</span>
 	                </TableCell>
-	                {isWidth768 && (
-	                  <TableCell
-	                    className={`${isWidth1024 ? "w-[30%]" : "min-w-[250px]"}`}
-	                  >
-	                    <span className={`${theme === "dark" ? "text-white" : "text-black"}`}>{task.description}</span>
-	                  </TableCell>
-	                )}
-	                <TableCell className="w-[10%] min-w-[150px]">
-	                  <span className={`${theme === "dark" ? "text-white" : "text-black"}`}>{task.status}</span>
-	                </TableCell>
-	                {isWidth1024 && (
+	              )}
+	              <TableCell className="w-[10%] min-w-[150px]">
+	                <span className={`${theme === "dark" ? "text-white" : "text-black"}`}>{task.status}</span>
+	              </TableCell>
+	              {isWidth1024 && (
 	                  <TableCell className="w-[10%] min-w-[180px]">
 	                    <span className={`${theme === "dark" ? "text-white" : "text-black"}`}>{task.assignee}</span>
 	                  </TableCell>
@@ -220,48 +219,6 @@ export default function TaskList({theme}: {theme: string}) {
 	                </TableCell>
 	              </TableRow>
 	            ))}
-						):(
-							{state.tasksByStatus.Todo.map((task) => (
-	              <TableRow key={task.id}>
-	                <TableCell
-	                  className={`${isWidth1024 ? "w-[20%]" : "min-w-[150px]"}`}
-	                >
-	                  <span className={`${theme === "dark" ? "text-white" : "text-black"}`}>{task.title}</span>
-	                </TableCell>
-	                {isWidth768 && (
-	                  <TableCell
-	                    className={`${isWidth1024 ? "w-[30%]" : "min-w-[250px]"}`}
-	                  >
-	                    <span className={`${theme === "dark" ? "text-white" : "text-black"}`}>{task.description}</span>
-	                  </TableCell>
-	                )}
-	                <TableCell className="w-[10%] min-w-[150px]">
-	                  <span className={`${theme === "dark" ? "text-white" : "text-black"}`}>{task.status}</span>
-	                </TableCell>
-	                {isWidth1024 && (
-	                  <TableCell className="w-[10%] min-w-[180px]">
-	                    <span className={`${theme === "dark" ? "text-white" : "text-black"}`}>{task.assignee}</span>
-	                  </TableCell>
-	                )}
-	                <TableCell className="w-[10%] min-w-[120px]">
-	                  <IconButton onClick={() => handleEditTaskOpen(task)} 
-											style={{
-												color: theme === "dark" ? "white" : "black",
-											}}	
-										>
-	                    <EditIcon />
-	                  </IconButton>
-	                  <IconButton onClick={() => handleDelete(task.id)}
-											style={{
-												color: theme === "dark" ? "white" : "black",
-											}}		
-										>
-	                    <DeleteIcon />
-	                  </IconButton>
-	                </TableCell>
-	              </TableRow>
-	            ))}
-						)}
 	            
           </TableBody>
         </Table>
